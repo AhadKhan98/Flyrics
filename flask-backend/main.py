@@ -1,6 +1,6 @@
 import flask
 import os
-from flask import request, url_for, redirect
+from flask import request, url_for, redirect, jsonify
 
 import audio_processor
 
@@ -30,8 +30,16 @@ def upload_file():
 @app.route("/start-process/<filename>")
 def start_process(filename):
     print("FILENAME WAS", filename)
-    audio_processor.separate_audio(filename)
-    return flask.render_template("index.html")
+    if (audio_processor.separate_audio(filename)):
+        # File conversion successful
+        audio_processor.slow_down_audio(filename)
+        audio_processor.audio_to_chunks(filename)
+        result_text = audio_processor.chunks_to_text(filename)
+        return jsonify(result_text)
+        # return flask.render_template("index.html")
+    else:
+        # File conversion failed
+        return flask.render_template("index.html")
 
 
 if __name__ == "__main__":

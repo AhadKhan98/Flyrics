@@ -8,8 +8,9 @@ instance/*
 .webassets-cache
 
 ### User Files ###
-uploads/
-converted/
+*.mp3
+*.wav
+key.json
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
