@@ -7,6 +7,10 @@ instance/*
 !instance/.gitignore
 .webassets-cache
 
+### User Files ###
+uploads/
+converted/
+
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
