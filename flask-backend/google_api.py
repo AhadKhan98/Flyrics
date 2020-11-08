@@ -13,8 +13,6 @@ def transcribe_file(speech_file, file_name):
     audio = speech.RecognitionAudio(content=content)
     config = speech.RecognitionConfig(
         audio_channel_count=2,
-        # encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        # sample_rate_hertz=79380,
         language_code="en-US",
     )
 
