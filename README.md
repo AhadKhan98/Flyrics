@@ -43,7 +43,7 @@ The process of getting started is twofold, and is described below.
 ``` pip install -r requirements.txt ``` OR ``` pip3 install -r requirements.txt ```
 4. Run the following command to start the server: ```python main.py``` OR ```python3 main.py```
 5. If you see a message like the one below, you have successfully started the backend server.
-<img src="./assets/backend-success.png" alt="backend success" />
+<img src="./assets/backend-success.PNG" width="400px" alt="backend success" />
 
 ## Contributing
 
