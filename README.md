@@ -45,10 +45,21 @@ The process of getting started is twofold, and is described below.
 5. If you see a message like the one below, you have successfully started the backend server.
 <img src="./assets/backend-success.PNG" width="400px" alt="backend success" />
 
+#### Running The Frontend App
+Add instructions here..
+
 ## Contributing
+We would absolutely love for you to help us in making Flyrics better by contributing to our project. Head to the [Contributors](https://github.com/AhadKhan98/Flyrics/blob/master/CONTRIBUTORS.md) page to get started right away!
+
+## Code of Conduct
+We promote an open and a welcoming environment in this community. We pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+Learn more about our [Code of Conduct](https://github.com/AhadKhan98/Flyrics/blob/master/CODE-OF-CONDUCT.md).
 
 ## Video Demo
+Video goes here when we are done..
 
-## Contributors
+## License
+[MIT @ MLH Fellowship 2020](https://github.com/AhadKhan98/Flyrics/blob/master/LICENSE)
 
+Made by [Ahad Zai](https://github.com/ahadkhan98) and [Saurabh Suryan](https://github.com/sksuryan) during MLH Fellowship Explorer Sprint 3 (Fall 2020)
 
