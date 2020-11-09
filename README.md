@@ -3,7 +3,7 @@
   <h3 align="center">Flyrics - Lyrics On The Fly</h3>
   <p align="center">Did you ever want to sing along to a song but don't know the lyrics? 
   <br />
-  Tired of going through the tedious process of searching for multiples sites to find the right lyrics?
+  Tired of going through the tedious process of searching for multiple sites to find the right lyrics?
   <br />
   <br />
   <strong>We have a solution!</strong>
