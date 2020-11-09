@@ -14,5 +14,10 @@
   No need to search online databases just to find out the lyrics to a song.
   <br />
   Check out the project details below in order to learn how flyrics works, and get started right away!
+  <br />
+  <br />
+  <a href="https://github.com/AhadKhan98/Flyrics/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/AhadKhan98/Flyrics/issues">Submit Feature</a>
   </p>
 </p>
