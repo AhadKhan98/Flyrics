@@ -1,5 +1,6 @@
 import flask
 import os
+import shutil
 from flask import request, url_for, redirect, jsonify
 
 import audio_processor  # Manages converting audio into vocals, slowing and transcribing
@@ -39,6 +40,8 @@ def upload_file():
         result_text = audio_processor.chunks_to_text(
             filename)
 
+        os.remove('./uploads/sample')
+        shutil.rmtree('./converted/sample')
         # Return a json object containing all of the lyrics for the all of the chunks
         return jsonify(result_text)
     else:
