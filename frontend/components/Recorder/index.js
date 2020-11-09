@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {TouchableOpacity, StyleSheet, Platform, Text, View} from 'react-native';
 import {AudioUtils, AudioRecorder} from 'react-native-audio';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 
@@ -36,7 +36,6 @@ class Recorder extends React.Component {
       };
 
       AudioRecorder.onFinished = (data) => {
-        // Android callback comes in the form of a promise instead.
         if (Platform.OS === 'ios') {
           this._finishRecording(
             data.status === 'OK',
@@ -48,17 +47,12 @@ class Recorder extends React.Component {
     });
   }
 
-  _finishRecording = (didSucceed, filePath, fileSize) => {
-    this.setState({
-      song: {
-        uri: 'file://' + filePath,
-        type: 'audio/aac',
-        name: 'test3.aac',
-      },
+  _finishRecording = (_, filePath, fileSize) => {
+    this.props.setSong({
+      uri: 'file://' + filePath,
+      type: 'audio/aac',
+      name: 'test3.aac',
     });
-    console.log(
-      `Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize} bytes`,
-    );
   };
 
   //move to different component
@@ -120,23 +114,32 @@ class Recorder extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={styles.microphone}
-        onPress={this.state.recording ? this._stop : this._record}>
-        <Icon
-          name={this.state.recording ? 'control-pause' : 'microphone'}
-          size={125}
-          color={Colors.red}
-        />
-      </TouchableOpacity>
+      <View style={styles.microphone}>
+        <TouchableOpacity
+          onPress={this.state.recording ? this._stop : this._record}>
+          <Icon
+            name={this.state.recording ? 'control-pause' : 'microphone'}
+            size={125}
+            color={Colors.red}
+          />
+        </TouchableOpacity>
+        <Text style={styles.text}>{this.state.currentTime}s</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   microphone: {
-    position: 'relative',
-    top: '-50%',
+    position: 'absolute',
+    top: '15%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 22,
+    marginTop: 12,
   },
 });
 
