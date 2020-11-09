@@ -8,6 +8,12 @@ import audio_processor  # Manages converting audio into vocals, slowing and tran
 app = flask.Flask("__main__")
 app.config["UPLOAD_FOLDER"] = "uploads/"  # Default directory for all uploads
 
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
+
+if not os.path.exists('converted'):
+    os.makedirs('converted')
+
 
 @app.route("/")  # Index Page
 def my_index():
