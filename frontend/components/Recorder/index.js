@@ -21,9 +21,7 @@ class Recorder extends React.Component {
 
   componentDidMount() {
     AudioRecorder.requestAuthorization().then((isAuthorised) => {
-      this.setState({hasPermission: isAuthorised}, () =>
-        console.log(this.state.hasPermission),
-      );
+      this.setState({hasPermission: isAuthorised});
 
       if (!isAuthorised) {
         return;

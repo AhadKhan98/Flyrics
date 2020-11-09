@@ -1,12 +1,3 @@
-/* eslint-disable prettier/prettier */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -17,21 +8,15 @@ import {
   TouchableOpacity,
   ScrollView,
   View,
+  Modal,
+  Pressable,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
+// import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 
 import colors from './config/colors';
 import Recorder from './components/Recorder';
 import Player from './components/Player';
-
-// import {
-//   Header,
-//   LearnMoreLinks,
-//   Colors,
-//   DebugInstructions,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +24,7 @@ class App extends React.Component {
     this.state = {
       song: null,
       lyrics: '',
+      showModal: false,
     };
     this._onFinishedPlayingSubscription = null;
   }
@@ -112,21 +98,43 @@ class App extends React.Component {
           ) : (
             <Recorder setSong={this.setSong} />
           )}
-          <View style={styles.scrollView}>
-            <ScrollView>
-              <Text style={styles.scrollViewText}>{this.state.lyrics}</Text>
-            </ScrollView>
-          </View>
           <View style={styles.view}>
             <TouchableOpacity
               style={[styles.button, {backgroundColor: buttonColor}]}
               onPress={this.state.song ? this.uploadFile : this.pickAudio}>
               <Text style={styles.text}>{buttonText}</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity style={styles.trash}>
-              <Icon name="trash" size={36} color={colors.yellow} />
-            </TouchableOpacity> */}
           </View>
+          <TouchableOpacity
+            style={styles.bottomSheet}
+            onPress={() => this.setState({showModal: true})}>
+            <View style={styles.bottomSheetRect} />
+          </TouchableOpacity>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.showModal}
+            onRequestClose={() => {
+              console.log('Modal has been closed.');
+            }}>
+            <View style={styles.modal}>
+              <Pressable
+                onPress={() => this.setState({showModal: false})}
+                style={styles.modalPressable}
+              />
+              <View style={styles.modalView}>
+                <View style={styles.scrollView}>
+                  <ScrollView>
+                    <Text style={styles.scrollViewText}>
+                      {this.state.lyrics
+                        ? this.state.lyrics
+                        : 'Find your lyrics here :)'}
+                    </Text>
+                  </ScrollView>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </SafeAreaView>
       </>
     );
@@ -134,6 +142,32 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  bottomSheet: {
+    height: 40,
+    width: '100%',
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+    borderColor: colors.black,
+    borderStyle: 'solid',
+    borderWidth: 0.05,
+  },
+  bottomSheetRect: {
+    width: 36,
+    height: 8,
+    backgroundColor: '#bfbfbf',
+    borderRadius: 5,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 18,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 16.0,
+    elevation: 24,
+  },
   button: {
     width: '40%',
     padding: 12,
@@ -148,19 +182,42 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  modal: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-end',
+  },
+  modalPressable: {
+    flex: 1,
+  },
+  modalText: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 16,
+  },
+  modalView: {
+    backgroundColor: colors.white,
+    height: '75%',
+    width: '100%',
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+    elevation: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
   text: {
     color: colors.white,
     fontFamily: 'Montserrat-SemiBold',
   },
   scrollView: {
-    flex: 0.4,
-    marginBottom: 24,
     width: '100%',
+    height: '90%',
     padding: 16,
   },
   scrollViewText: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16,
+    textAlign: 'center',
   },
   trash: {
     position: 'absolute',
