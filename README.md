@@ -29,6 +29,22 @@ Flyrics uses an Artifical Intelligence and a Machine Language approach to genera
 
 ## Getting Started
 
+The process of getting started is twofold, and is described below.
+
+#### Cloning The Repo
+1. Make sure you have git installed on your computer.
+2. Run the following command to clone the repo: ```git clone https://github.com/AhadKhan98/Flyrics.git```
+
+
+#### Firing Up The Backend Server
+1. Browse into the ```flask-backend``` folder.
+2. Make sure you have python3 and pip installed.
+3. Install dependencies using the following command:
+``` pip install -r requirements.txt ``` OR ``` pip3 install -r requirements.txt ```
+4. Run the following command to start the server: ```python main.py``` OR ```python3 main.py```
+5. If you see a message like the one below, you have successfully started the backend server.
+<img src="./assets/backend-success.png" alt="backend success" />
+
 ## Contributing
 
 ## Video Demo
