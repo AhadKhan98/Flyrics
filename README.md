@@ -21,3 +21,18 @@
     <a href="https://github.com/AhadKhan98/Flyrics/issues">Submit Feature</a>
   </p>
 </p>
+<hr>
+
+## How it Works
+
+Flyrics uses an Artifical Intelligence and a Machine Language approach to generate lyrics on the fly. The project is divided into a backend (python & flask) and a frontend (react native). The user is able to either record a sample of a song, or upload an already existing file in the frontend. The frontend then communicates with the flask server in the backend which is responsible for all of the processing. This processing includes the usage of a python library spleeter which uses a trained model to separate the vocals from the song that was inputted. The vocals are then slowed down in order to increase speech recognition accuracy. The slowed file is passed on to Google's Speech-to-Text API which handles the conversion of the vocals into text. The result is a JSON object which is passed back to the frontend. Finally, the result is displayed in the frontend and the files that were created in the backend are deleted to save disk space.
+
+## Getting Started
+
+## Contributing
+
+## Video Demo
+
+## Contributors
+
+
