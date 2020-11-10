@@ -46,8 +46,12 @@ def upload_file():
         result_text = audio_processor.chunks_to_text(
             filename)
 
+        # Reinitiate empty folders
         shutil.rmtree('uploads')
         shutil.rmtree('converted')
+        os.makedirs('uploads')
+        os.makedirs('converted')
+
         # Return a json object containing all of the lyrics for the all of the chunks
         return jsonify(result_text)
     else:
