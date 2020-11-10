@@ -26,7 +26,7 @@ def slow_down_audio(filename):
     filename_without_ext = str(filename.split('.')[0])
     CHANNELS = 2
     swidth = 2
-    Change_RATE = 0.8  # Rate of the track (lower = slower)
+    Change_RATE = 0.98  # Rate of the track (lower = slower)
 
     audio_file = wave.open(
         'converted/{}/vocals.wav'.format(filename_without_ext), 'rb')  # Opens the vocals file to slow down
