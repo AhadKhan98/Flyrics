@@ -4,13 +4,14 @@ import SoundPlayer from 'react-native-sound-player';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 
 import Colors from '../../config/colors';
+import PlayAnimation from '../PlayAnimation';
 
 class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playing: false,
-      time: '',
+      time: '0m:0s / 0m:0s',
       interval: false,
     };
     this.finishedPlayingSubscription = null;
@@ -21,7 +22,9 @@ class Player extends React.Component {
     this.finishedPlayingSubscription = SoundPlayer.addEventListener(
       'FinishedPlaying',
       (_) => {
-        this.setState({playing: false});
+        this.getInfo();
+        SoundPlayer.loadUrl(this.props.song.uri);
+        this.setState({playing: false, time: '0m:0s / 0m:0s'}, this.getInfo);
       },
     );
     this.getInfo();
@@ -67,13 +70,20 @@ class Player extends React.Component {
   render() {
     return (
       <View style={styles.microphone}>
+        {this.state.playing && <PlayAnimation />}
         <TouchableOpacity>
-          <Icon
-            name={this.state.playing ? 'control-pause' : 'control-play'}
-            size={125}
-            color={Colors.green}
-            onPress={this.state.playing ? this._stop : this._play}
-          />
+          {!this.state.playing ? (
+            <Icon
+              name={this.state.playing ? 'control-pause' : 'control-play'}
+              size={125}
+              color={Colors.green}
+              onPress={this._play}
+            />
+          ) : (
+            <TouchableOpacity onPress={this._stop}>
+              <Icon name="control-pause" size={32} color={Colors.red} />
+            </TouchableOpacity>
+          )}
         </TouchableOpacity>
         <Text style={styles.text}>{this.state.time}</Text>
       </View>
