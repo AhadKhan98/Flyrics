@@ -46,7 +46,16 @@ The process of getting started is twofold, and is described below.
 <img src="./assets/backend-success.PNG" width="400px" alt="backend success" />
 
 #### Running The Frontend App
-Add instructions here..
+1. Browse into the ```frontend``` folder.
+2. Make sure you have Node and NPM installed.
+3. Install dependencies using the following command:
+``` npm install ```
+4. Once dependencies are installed, start the metro bundler using ``` react-native start ```.
+5. Start the emulator using ``` react-native run-android ``` or if for iOS ``` react-native run-ios ```.
+6. If on windows, use ``` npx ``` as prefix before commands.
+5. If everything is set up correctly, you'll see android or iOS emulator depending on the command with App working.
+
+***NOTE:*** Make sure that you have Android Studio or iOS emulator all set up before hand. For detailed instructions to set up React Native Development evvironment, read [React Native Documentation](https://reactnative.dev/docs/environment-setup).
 
 ## Contributing
 We would absolutely love for you to help us in making Flyrics better by contributing to our project. Head to the [Contributors](https://github.com/AhadKhan98/Flyrics/blob/master/CONTRIBUTORS.md) page to get started right away!
@@ -55,11 +64,24 @@ We would absolutely love for you to help us in making Flyrics better by contribu
 We promote an open and a welcoming environment in this community. We pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 Learn more about our [Code of Conduct](https://github.com/AhadKhan98/Flyrics/blob/master/CODE-OF-CONDUCT.md).
 
+## App UI
+<div>
+  <img src="./assets/frontend/Screenshot_1605024028.png" width="200px" alt="Screenshot 1" />
+  <img src="./assets/frontend/Screenshot_1605024033.png" width="200px" alt="Screenshot 2" />
+  <img src="./assets/frontend/Screenshot_1605024038.png" width="200px" alt="Screenshot 3" />
+</div>
+<br />
+<div>
+  <img src="./assets/frontend/Screenshot_1605024041.png" width="200px" alt="Screenshot 4" />
+  <img src="./assets/frontend/Screenshot_1605024048.png" width="200px" alt="Screenshot 5" />
+  <img src="./assets/frontend/Screenshot_1605024065.png" width="200px" alt="Screenshot 6" />
+</div>
+
 ## Video Demo
 Video goes here when we are done..
 
 ## License
 [MIT @ MLH Fellowship 2020](https://github.com/AhadKhan98/Flyrics/blob/master/LICENSE)
 
-Made by [Ahad Zai](https://github.com/ahadkhan98) and [Saurabh Suryan](https://github.com/sksuryan) during MLH Fellowship Explorer Sprint 3 (Fall 2020)
+Made with ❤ by [Ahad Zai](https://github.com/ahadkhan98) and [Saurabh Kumar Suryan](https://github.com/sksuryan) during MLH Fellowship Explorer Sprint 3 (Fall 2020)
 
