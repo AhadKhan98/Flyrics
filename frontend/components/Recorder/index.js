@@ -10,17 +10,16 @@ class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTime: 0.0,
-      recording: false,
-      paused: false,
-      stoppedRecording: false,
-      finished: false,
-      audioPath: AudioUtils.MusicDirectoryPath + '/test3.aac',
-      hasPermission: undefined,
+      currentTime: 0.0, //current duration of recording
+      recording: false, //if audio is being recorded
+      stoppedRecording: false, //if recording has been stopped
+      audioPath: AudioUtils.MusicDirectoryPath + '/test3.aac', //sets the path of the recording
+      hasPermission: undefined, //checks if recording permissions have been granted
     };
   }
 
   componentDidMount() {
+    //Requesting audio recording permission once the component is mounted
     AudioRecorder.requestAuthorization().then((isAuthorised) => {
       this.setState({hasPermission: isAuthorised});
 
@@ -28,12 +27,15 @@ class Recorder extends React.Component {
         return;
       }
 
+      //sets the path and file name to save audio
       this.prepareRecordingPath(this.state.audioPath);
 
+      //adds callback to update currentTime property for recording
       AudioRecorder.onProgress = (data) => {
         this.setState({currentTime: Math.floor(data.currentTime)});
       };
 
+      //calls _finsihedRecording once recording is finished
       AudioRecorder.onFinished = (data) => {
         if (Platform.OS === 'ios') {
           this._finishRecording(
@@ -46,6 +48,7 @@ class Recorder extends React.Component {
     });
   }
 
+  //return detail of the recording to App component
   _finishRecording = (_, filePath, fileSize) => {
     this.props.setSong({
       uri: 'file://' + filePath,
@@ -54,7 +57,7 @@ class Recorder extends React.Component {
     });
   };
 
-  //move to different component
+  //Sets up properties for recording
   prepareRecordingPath(audioPath) {
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 48000,
@@ -65,43 +68,50 @@ class Recorder extends React.Component {
     });
   }
 
-  //different component
+  //start recording
   _record = async () => {
     if (this.state.recording) {
       console.warn('Already recording!');
       return;
     }
 
+    //checks if the recording permission is provided
     if (!this.state.hasPermission) {
       console.warn("Can't record, no permission granted!");
       return;
     }
 
+    //adds path to save recording to AudioRecorder
     if (this.state.stoppedRecording) {
       this.prepareRecordingPath(this.state.audioPath);
     }
 
-    this.setState({recording: true, paused: false});
+    //sets recording to true to indicate recording started
+    this.setState({recording: true});
 
     try {
+      //starts recording
       await AudioRecorder.startRecording();
     } catch (error) {
       console.error(error);
     }
   };
 
-  // different component
+  // stops recording
   _stop = async () => {
     if (!this.state.recording) {
       console.warn("Can't stop, not recording!");
       return;
     }
 
-    this.setState({stoppedRecording: true, recording: false, paused: false});
+    //updates state according to that
+    this.setState({stoppedRecording: true, recording: false});
 
     try {
+      //saves path for audio file
       const filePath = await AudioRecorder.stopRecording();
 
+      //calls _finishesRecording once recording is completed
       if (Platform.OS === 'android') {
         this._finishRecording(true, filePath);
       }
@@ -113,7 +123,9 @@ class Recorder extends React.Component {
 
   render() {
     return (
+      //View to contain rest of the components
       <View style={styles.microphone}>
+        {/* Displays animation if audio is being recorded */}
         {this.state.recording && <PlayAnimation />}
         <TouchableOpacity
           onPress={this.state.recording ? this._stop : this._record}>
@@ -129,6 +141,7 @@ class Recorder extends React.Component {
             </TouchableOpacity>
           )}
         </TouchableOpacity>
+        {/* Text to display currentTime of recording */}
         <Text style={styles.text}>{this.state.currentTime}s</Text>
       </View>
     );
@@ -136,6 +149,7 @@ class Recorder extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  //used to place the component in the above portion of screen
   microphone: {
     position: 'absolute',
     top: '15%',
@@ -143,6 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  //style for font
   text: {
     fontFamily: 'Montserrat-Regular',
     fontSize: 22,
