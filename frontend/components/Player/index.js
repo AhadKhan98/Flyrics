@@ -63,6 +63,7 @@ class Player extends React.Component {
   };
 
   componentWillUnmount() {
+    SoundPlayer.stop();
     this.finishedPlayingSubscription.remove();
     clearInterval(this.interval);
   }
