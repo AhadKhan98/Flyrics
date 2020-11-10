@@ -4,6 +4,7 @@ import {AudioUtils, AudioRecorder} from 'react-native-audio';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 
 import Colors from '../../config/colors';
+import PlayAnimation from '../PlayAnimation';
 
 class Recorder extends React.Component {
   constructor(props) {
@@ -113,13 +114,20 @@ class Recorder extends React.Component {
   render() {
     return (
       <View style={styles.microphone}>
+        {this.state.recording && <PlayAnimation />}
         <TouchableOpacity
           onPress={this.state.recording ? this._stop : this._record}>
-          <Icon
-            name={this.state.recording ? 'control-pause' : 'microphone'}
-            size={125}
-            color={Colors.red}
-          />
+          {!this.state.recording ? (
+            <Icon
+              name={this.state.recording ? 'control-pause' : 'microphone'}
+              size={125}
+              color={Colors.red}
+            />
+          ) : (
+            <TouchableOpacity onPress={this._stop}>
+              <Icon name="control-pause" size={32} color={Colors.red} />
+            </TouchableOpacity>
+          )}
         </TouchableOpacity>
         <Text style={styles.text}>{this.state.currentTime}s</Text>
       </View>
@@ -131,6 +139,7 @@ const styles = StyleSheet.create({
   microphone: {
     position: 'absolute',
     top: '15%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },

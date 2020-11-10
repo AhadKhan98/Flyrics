@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-// import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
+import AnimatedLoader from 'react-native-animated-loader';
 
 import colors from './config/colors';
 import Recorder from './components/Recorder';
@@ -25,6 +25,7 @@ class App extends React.Component {
       song: null,
       lyrics: '',
       showModal: false,
+      isLoading: false,
     };
     this._onFinishedPlayingSubscription = null;
   }
@@ -40,7 +41,7 @@ class App extends React.Component {
         });
         this.setSong(res);
       } catch (err) {
-        throw err;
+        console.log(err);
       }
     }
   };
@@ -50,6 +51,7 @@ class App extends React.Component {
   };
 
   uploadFile = async () => {
+    this.setState({isLoading: true});
     let formData = new FormData();
     formData.append('file', {
       uri: this.state.song.uri,
@@ -71,7 +73,7 @@ class App extends React.Component {
       .then((data) => data.json())
       .then((data) => {
         let lyrics = this.processLyrics(data);
-        this.setState({song: null, lyrics});
+        this.setState({song: null, lyrics, isLoading: false, showModal: true});
       })
       .catch((err) => console.error(err));
   };
@@ -92,50 +94,68 @@ class App extends React.Component {
     return (
       <>
         <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
-        <SafeAreaView style={styles.main}>
-          {this.state.song ? (
-            <Player song={this.state.song} />
-          ) : (
-            <Recorder setSong={this.setSong} />
-          )}
-          <View style={styles.view}>
+        {!this.state.isLoading ? (
+          <SafeAreaView style={styles.main}>
+            {this.state.song ? (
+              <Player song={this.state.song} />
+            ) : (
+              <Recorder setSong={this.setSong} />
+            )}
+            <View style={styles.view}>
+              <TouchableOpacity
+                style={[styles.button, {backgroundColor: buttonColor}]}
+                onPress={this.state.song ? this.uploadFile : this.pickAudio}>
+                <Text style={styles.text}>{buttonText}</Text>
+              </TouchableOpacity>
+            </View>
+            {/*Diffrent component*/}
             <TouchableOpacity
-              style={[styles.button, {backgroundColor: buttonColor}]}
-              onPress={this.state.song ? this.uploadFile : this.pickAudio}>
-              <Text style={styles.text}>{buttonText}</Text>
+              style={styles.bottomSheet}
+              onPress={() => this.setState({showModal: true})}>
+              <View style={styles.bottomSheetRect} />
             </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.bottomSheet}
-            onPress={() => this.setState({showModal: true})}>
-            <View style={styles.bottomSheetRect} />
-          </TouchableOpacity>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.showModal}
-            onRequestClose={() => {
-              console.log('Modal has been closed.');
-            }}>
-            <View style={styles.modal}>
-              <Pressable
-                onPress={() => this.setState({showModal: false})}
-                style={styles.modalPressable}
-              />
-              <View style={styles.modalView}>
-                <View style={styles.scrollView}>
-                  <ScrollView>
-                    <Text style={styles.scrollViewText}>
-                      {this.state.lyrics
-                        ? this.state.lyrics
-                        : 'Find your lyrics here :)'}
-                    </Text>
-                  </ScrollView>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.showModal}
+              onRequestClose={() => {
+                console.log('Modal has been closed.');
+              }}>
+              <View style={styles.modal}>
+                <Pressable
+                  onPress={() => this.setState({showModal: false})}
+                  style={styles.modalPressable}
+                />
+                <View style={styles.modalView}>
+                  <View style={styles.scrollView}>
+                    <ScrollView>
+                      <Text style={styles.scrollViewText}>
+                        {this.state.lyrics
+                          ? this.state.lyrics
+                          : 'Find your lyrics here :)'}
+                      </Text>
+                    </ScrollView>
+                  </View>
                 </View>
               </View>
+            </Modal>
+          </SafeAreaView>
+        ) : (
+          <SafeAreaView style={styles.loaderView}>
+            <View style={styles.loadingTextView}>
+              <Text style={styles.scrollViewText}>
+                Writing a song for you 😉
+              </Text>
             </View>
-          </Modal>
-        </SafeAreaView>
+            <AnimatedLoader
+              visible={this.state.isLoading}
+              overlayColor="rgba(255,255,255,0)"
+              animationStyle={styles.lottie}
+              speed={1}
+              source={require('./animations/loading.json')}
+            />
+          </SafeAreaView>
+        )}
       </>
     );
   }
@@ -174,6 +194,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red,
     alignItems: 'center',
     borderRadius: 8,
+  },
+  loaderView: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingTextView: {
+    position: 'absolute',
+    bottom: 0,
+    marginBottom: 12,
+  },
+  lottie: {
+    width: '100%',
+    height: '100%',
   },
   main: {
     backgroundColor: colors.white,
@@ -218,10 +253,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontSize: 16,
     textAlign: 'center',
-  },
-  trash: {
-    position: 'absolute',
-    left: '75%',
   },
   view: {
     width: '100%',
