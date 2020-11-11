@@ -55,7 +55,7 @@ The process of getting started is twofold, and is described below.
 6. If on windows, use ``` npx ``` as prefix before commands.
 5. If everything is set up correctly, you'll see android or iOS emulator depending on the command with App working.
 
-***NOTE:*** Make sure that you have Android Studio or iOS emulator all set up before hand. For detailed instructions to set up React Native Development evvironment, read [React Native Documentation](https://reactnative.dev/docs/environment-setup).
+***NOTE:*** Make sure that you have Android Studio or iOS emulator all set up before hand. For detailed instructions to set up React Native Development environment, read [React Native Documentation](https://reactnative.dev/docs/environment-setup).
 
 ## Contributing
 We would absolutely love for you to help us in making Flyrics better by contributing to our project. Head to the [Contributors](https://github.com/AhadKhan98/Flyrics/blob/master/CONTRIBUTORS.md) page to get started right away!
