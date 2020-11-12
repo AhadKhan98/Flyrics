@@ -35,6 +35,9 @@ The process of getting started is twofold, and is described below.
 1. Make sure you have git installed on your computer.
 2. Run the following command to clone the repo: ```git clone https://github.com/AhadKhan98/Flyrics.git```
 
+#### Setting Up FFmpeg
+1. Flyrics uses a library that is dependent on an external audio tool FFmpeg.
+2. Please refer to their instructions on setting it up. [Downnload FFmpeg](https://ffmpeg.org/download.html)
 
 #### Firing Up The Backend Server
 1. Browse into the ```flask-backend``` folder.
@@ -78,7 +81,7 @@ Learn more about our [Code of Conduct](https://github.com/AhadKhan98/Flyrics/blo
 </div>
 
 ## Video Demo
-Video goes here when we are done..
+Watch our demo on [YouTube](https://www.youtube.com/watch?v=wK8iTn1zaqo)
 
 ## License
 [MIT @ MLH Fellowship 2020](https://github.com/AhadKhan98/Flyrics/blob/master/LICENSE)
